@@ -63,7 +63,7 @@ app.component('product-display', {
         return {
             brand: 'Vue Learning',
             product: 'Socks',
-            description: ['Washable and dries quickly.', 'Clean af', 'Made of soft fabric'],
+            description: ['Washable and dries quickly', 'Clean af', 'Made of soft fabric'],
             selectedVariant: 0,
             outOfStock: './images/out-of-stock.png',
             imgdesc: 'This is a pair of socks.',
@@ -76,7 +76,7 @@ app.component('product-display', {
             ],
             variants: [
                 { id: 1, color: 'Green', imgpath: './images/vmSocks-green.png', quantity: 50 },
-                { id: 2, color: 'Blue', imgpath: './images/vmSocks-blue.png', quantity: 0 },
+                { id: 2, color: 'Blue', imgpath: './images/vmSocks-blue.png', quantity: 7 },
             ],
             imgheight: '500px',
             imgwidth: '500px',
@@ -84,7 +84,7 @@ app.component('product-display', {
             onSale: true,
             items: 0,
             price: 250,
-            discountPrice: 1000
+            discountPrice: 200
         }
     },
     methods: {
