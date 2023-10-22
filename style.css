@@ -1,0 +1,145 @@
+@media screen and (max-width: 1000px) {
+    .product {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column !important;
+        padding: 5% 5% !important;
+    }
+}
+
+body {
+    font-family: tahoma;
+    color: #282828;
+    margin: 0px;
+}
+
+.cart {
+    order: 1;
+}
+
+.choice-box {
+    color: black;
+    border-radius: 15px;
+    background-color: #d6d6d6;
+    width: 100px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: .1s all ease-in-out
+}
+
+.choice-box:hover {
+    background-color: #ebebeb;
+}
+
+.nav-bar {
+    background: linear-gradient(-90deg, #84CF6A, #16C0B0);
+    height: 60px;
+    margin-bottom: 15px;
+}
+
+.product {
+    display: flex;
+    flex-flow: wrap;
+    padding: 1rem;
+}
+
+img {
+    border: 1px solid #d8d8d8;
+    width: 70%;
+    margin: 40px;
+    box-shadow: 0px .5px 1px #d8d8d8;
+}
+
+.product-image {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-image,
+.product-info {
+    order: 0;
+    margin-top: 10px;
+    width: 50%;
+}
+
+.color-box {
+    width: 40px;
+    height: 40px;
+    margin-top: 5px;
+}
+
+.cart {
+    margin-right: 25px;
+    float: right;
+    border: 1px solid #d8d8d8;
+    padding: 5px 20px;
+}
+
+.color-circle {
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    border: 2px solid gray;
+}
+
+button {
+    margin-top: 30px;
+    border: none;
+    background-color: #1E95EA;
+    color: white;
+    height: 40px;
+    width: 100px;
+    font-size: 14px;
+}
+
+.disabledButton {
+    color: gray;
+    background-color: #f5f5f5;
+}
+
+.disabledButton:hover {
+    background-color: #f5f5f5;
+}
+
+.review-form {
+    width: 400px;
+    padding: 20px;
+    margin: 40px;
+    border: 1px solid #d8d8d8;
+}
+
+input {
+    width: 100%;
+    height: 25px;
+    margin-bottom: 20px;
+}
+
+.tab {
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.activeTab {
+    color: #16C0B0;
+    text-decoration: underline;
+}
+
+table,
+th,
+td {
+    font-size: 1.2rem;
+    text-align: center;
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+textarea {
+    width: 100%;
+    height: 60px;
+}
