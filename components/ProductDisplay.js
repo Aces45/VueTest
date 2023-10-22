@@ -41,7 +41,7 @@ app.component('product-display', {
 
                 <p>Sizes:</p>
                 <div style="display: flex; flex-direction: row; gap: 1%">
-                    <div class="choice-box" v-for="size in sizes" @mouseover="scaleImage(size.scale)">
+                    <div class="choice-box" v-for="size in sizes" @mouseover="scaleImage(size.scale)" @click="scaleImage(size.scale)">
                         {{size.size}}
                     </div>
                 </div>
@@ -76,7 +76,7 @@ app.component('product-display', {
             ],
             variants: [
                 { id: 1, color: 'Green', imgpath: './images/vmSocks-green.png', quantity: 50 },
-                { id: 2, color: 'Blue', imgpath: './images/vmSocks-blue.png', quantity: 7 },
+                { id: 2, color: 'Blue', imgpath: './images/vmSocks-blue.png', quantity: 0 },
             ],
             imgheight: '500px',
             imgwidth: '500px',
