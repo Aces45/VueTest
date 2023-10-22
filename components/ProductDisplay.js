@@ -48,7 +48,7 @@ app.component('product-display', {
 
                 <p>Variants:</p>
                 <div style="display: flex; flex-direction: row; gap: 1%">
-                    <div class="color-circle" v-for="(variant, index) in variants" @mouseover="updateVariant(index)"
+                    <div class="color-circle" v-for="(variant, index) in variants" @mouseover="updateVariant(index)" @click="updateVariant(index)"
                         :style="{backgroundColor: variant.color}">
                     </div>
                 </div>
