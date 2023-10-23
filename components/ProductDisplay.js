@@ -10,7 +10,7 @@ app.component('product-display', {
         `<div class="product" style="display: flex; flex-direction: row; flex-wrap: nowrap; padding: 3% 5%">            
             <div class="product-image">
                 <img :src="[variantStock ? image : outOfStock]" :title="imgdesc"
-                    :style="{height: imgheight, width: imgwidth}" style="transition: all 0.2s ease-in-out;">
+                    :style="{height: imgheight, width: imgwidth}" style="transition: all 0.2s">
             </div>
 
             <div class="product-info">
@@ -28,16 +28,16 @@ app.component('product-display', {
                 </h2>
                 <h3 v-show="onSale" style="color:red">On Sale!! {{100-(discountPrice/price)*100}}% off!!</h3>
 
-                <p v-if="variantStock > 10" style="color:green">In Stock: {{variantStock}} </p>
-                <p v-else-if="variantStock <=10 && variantStock > 0" style="color:orange">Almost sold out!
+                <!-- {{productStatus}} -->
+                
+                <p v-if="variantStock > 10" style="color:green"> In Stock: {{variantStock}} </p>
+                <p v-else-if="variantStock <=10 && variantStock > 0" style="color:orange"> Almost sold out!
                     {{variantStock}} left</p>
-                <p v-else style="color:red">Out Of Stock</p>
-                                                
-                <p> Shipping: {{Shipping}}</p>
+                <p v-else style="color:red">Out Of Stock</p>          
 
-                <ul>
-                    <li v-for="item in description"> {{item}} </li>
-                </ul>
+                <p> Shipping: {{Shipping}}</p>
+                
+                <product-details :details="details"/>
 
                 <p>Sizes:</p>
                 <div style="display: flex; flex-direction: row; gap: 1%">
@@ -53,9 +53,9 @@ app.component('product-display', {
                     </div>
                 </div>
                 <br>
-                <button class="choice-box" :class="{disabledButton: !inStock}" v-on:click="addToCart()"
+                <button class="choice-box" :class="{disabledButton: !inStock}" @click="addToCart()"
                     :disabled="!inStock">
-                    Add to Cart
+                    Add to Cart <i class="fa-solid fa-cart-shopping"></i>
                 </button>
             </div>
         </div>`,
@@ -63,7 +63,7 @@ app.component('product-display', {
         return {
             brand: 'Vue Learning',
             product: 'Socks',
-            description: ['Washable and dries quickly', 'Clean af', 'Made of soft fabric'],
+            details: ['Washable and dries quickly', 'Clean af', 'Made of soft fabric'],
             selectedVariant: 0,
             outOfStock: './images/out-of-stock.png',
             imgdesc: 'This is a pair of socks.',
@@ -100,11 +100,14 @@ app.component('product-display', {
         },
         addToCart() {
             this.items++;
-            this.variants[selectedVariant].quantity--;
+            this.variants[this.selectedVariant].quantity--;
             // this.cart.push(variantColor, variantSize, 1);
         }
     },
     computed: {
+        // selectedVariant(){
+            
+        // },
         image() {
             return this.variants[this.selectedVariant].imgpath;
         },
@@ -125,6 +128,16 @@ app.component('product-display', {
                 return 'Free'
             }
             return '$2.99'
+        },
+        productStatus() {
+            const { quantity } = this.variants[this.selectedVariant];
+            if (quantity >= 10) {
+                return 'In Stock: ' + quantity;
+            }
+            else if (quantity < 10 && quantity > 0)
+                return 'Almost sold out!:' + quantity;
+            else if (quantity = 0)
+                return 'Out of Stock';
         }
     }
 });
