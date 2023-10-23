@@ -106,7 +106,7 @@ app.component('product-display', {
     },
     computed: {
         // selectedVariant(){
-            
+
         // },
         image() {
             return this.variants[this.selectedVariant].imgpath;
@@ -114,14 +114,14 @@ app.component('product-display', {
         variantStock() {
             return this.variants[this.selectedVariant].quantity;
         },
+        inStock() {
+            return (this.variants[this.selectedVariant].quantity != 0) ? true : false;
+        },
         title() {
             if (this.onSale) {
                 return this.brand + ' ' + this.product;
             }
             else return this.product;
-        },
-        inStock() {
-            return (this.variants[this.selectedVariant].quantity != 0) ? true : false;
         },
         Shipping() {
             if (this.premium) {
