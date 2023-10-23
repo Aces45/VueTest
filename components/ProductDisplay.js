@@ -45,18 +45,21 @@ app.component('product-display', {
                         {{size.size}}
                     </div>
                 </div>
-
+            
                 <p>Variants:</p>
-                <div style="display: flex; flex-direction: row; gap: 1%">
-                    <div class="color-circle" v-for="(variant, index) in variants" @mouseover="updateVariant(index)" @click="updateVariant(index)"
-                        :style="{backgroundColor: variant.color}">
+                <div style="display:flex; flex-direction: column; gap: 1rem">
+                    <div v-for="(variant, index) in variants">
+                        <div style="display: flex; flex-direction: row; align-items: center; gap: 2%; ">
+                            <div class="color-circle" @mouseover="updateVariant(index)" @click="updateVariant(index)"
+                                :style="{backgroundColor: variant.color}">
+                            </div>
+                            <button class="choice-box" :class="{disabledButton: !inStock(index)}" @click="addToCart(index)"
+                            :disabled="!inStock(index)">
+                            Add to Cart <i class="fa-solid fa-cart-shopping"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <br>
-                <button class="choice-box" :class="{disabledButton: !inStock}" @click="addToCart()"
-                    :disabled="!inStock">
-                    Add to Cart <i class="fa-solid fa-cart-shopping"></i>
-                </button>
             </div>
         </div>`,
     data() {
@@ -76,7 +79,7 @@ app.component('product-display', {
             ],
             variants: [
                 { id: 1, color: 'Green', imgpath: './images/vmSocks-green.png', quantity: 50 },
-                { id: 2, color: 'Blue', imgpath: './images/vmSocks-blue.png', quantity: 0 },
+                { id: 2, color: 'Blue', imgpath: './images/vmSocks-blue.png', quantity: 20 },
             ],
             imgheight: '500px',
             imgwidth: '500px',
@@ -98,10 +101,14 @@ app.component('product-display', {
             this.imgheight = variantScale;
             this.imgwidth = variantScale;
         },
-        addToCart() {
-            this.items++;
-            this.variants[this.selectedVariant].quantity--;
+        addToCart(index) {
+            const itemToAdd = { product: this.product, color: this.variants[index].color, quantity: 1 };
+            this.addItemToCart(itemToAdd);
+            // this.variants[this.selectedVariant].quantity--;
             // this.cart.push(variantColor, variantSize, 1);
+        },
+        inStock(index) {
+            return (this.variants[index].quantity != 0) ? true : false;
         }
     },
     computed: {
@@ -113,9 +120,6 @@ app.component('product-display', {
         },
         variantStock() {
             return this.variants[this.selectedVariant].quantity;
-        },
-        inStock() {
-            return (this.variants[this.selectedVariant].quantity != 0) ? true : false;
         },
         title() {
             if (this.onSale) {
@@ -139,5 +143,6 @@ app.component('product-display', {
             else if (quantity = 0)
                 return 'Out of Stock';
         }
-    }
+    },
+    inject: ["addItemToCart"]
 });

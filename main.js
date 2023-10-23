@@ -1,9 +1,18 @@
 const app = Vue.createApp({
     data() {
         return {
-            cart: 0,
+            cart: [],
             premium: true
         }
     },
-    methods: {}
+    methods: {
+        addItemToCart(item){
+            this.cart.push(item);
+        }
+    },
+    provide(){
+        return {
+            addItemToCart: this.addItemToCart
+        }
+    }
 });

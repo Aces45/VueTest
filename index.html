@@ -22,7 +22,7 @@
     <div class="nav-bar"></div>
     <div id="app">
         <div class="cart">
-            Cart: ({{items}})
+            Cart: ({{cart.length}})
             <br><br>
             <table>
                 <thead>
@@ -31,15 +31,14 @@
                 </thead>
                 <tbody>
                     <tr v-for="item in cart">
-                        <td>{{item.color + " " + item.item}}</td>
-                        <td>{{item.quantity}}</td>
+                        <td>{{item.color + " " + item.product}}</td>
+                        <td>{{item.quantity}}</td>                        
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <product-display :premium="premium" />
-        <product-display :premium="premium" />
+        <product-display :premium="premium" />        
     </div>
 
     <!-- Import app -->
