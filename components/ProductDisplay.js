@@ -3,6 +3,10 @@ app.component('product-display', {
         premium: {
             type: Boolean,
             required: true
+        },
+        cart: {
+            type: Array,
+            required: true
         }
     },
     template:
@@ -85,7 +89,6 @@ app.component('product-display', {
             imgwidth: '500px',
 
             onSale: true,
-            items: 0,
             price: 250,
             discountPrice: 200
         }
@@ -102,10 +105,9 @@ app.component('product-display', {
             this.imgwidth = variantScale;
         },
         addToCart(index) {
-            const itemToAdd = { product: this.product, color: this.variants[index].color, quantity: 1 };
-            this.addItemToCart(itemToAdd);
-            // this.variants[this.selectedVariant].quantity--;
-            // this.cart.push(variantColor, variantSize, 1);
+            this.$emit('addToCart');
+            // const itemToAdd = { id: this.id, product: this.product, color: this.variants[index].color, quantity: 1 };
+            // this.addItemToCart(itemToAdd);            
         },
         inStock(index) {
             return (this.variants[index].quantity != 0) ? true : false;
@@ -142,7 +144,7 @@ app.component('product-display', {
                 return 'Almost sold out!:' + quantity;
             else if (quantity = 0)
                 return 'Out of Stock';
-        }
+        },                   
     },
-    inject: ["addItemToCart"]
+    inject: ["addItemToCart", "updateCart"]
 });
