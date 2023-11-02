@@ -3,11 +3,7 @@ app.component('product-display', {
         premium: {
             type: Boolean,
             required: true
-        },
-        cart: {
-            type: Array,
-            required: true
-        }
+        }        
     },
     template:
         /*html*/
@@ -30,8 +26,7 @@ app.component('product-display', {
                     </div>
                     <div v-else> ₱{{price}}</div>
                 </h2>
-                <h3 v-show="onSale" style="color:red">On Sale!! {{100-(discountPrice/price)*100}}% off!!</h3>
-
+                <h3 v-show="onSale" style="color:red">On Sale!! {{100-(discountPrice/price)*100}}% off!!</h3>                
                 <!-- {{productStatus}} -->
                 
                 <p v-if="variantStock > 10" style="color:green"> In Stock: {{variantStock}} </p>
@@ -45,7 +40,7 @@ app.component('product-display', {
 
                 <p>Sizes:</p>
                 <div style="display: flex; flex-direction: row; gap: 1%">
-                    <div class="choice-box" v-for="size in sizes" @mouseover="scaleImage(size.scale)" @click="scaleImage(size.scale)">
+                    <div class="choice-box" v-for="size in sizes" @mouseover="scaleImage(size.scale), updateSize(size.size)" @click="scaleImage(size.scale)">
                         {{size.size}}
                     </div>
                 </div>
@@ -57,21 +52,25 @@ app.component('product-display', {
                             <div class="color-circle" @mouseover="updateVariant(index)" @click="updateVariant(index)"
                                 :style="{backgroundColor: variant.color}">
                             </div>
-                            <button class="choice-box" :class="{disabledButton: !inStock(index)}" @click="addToCart(index)"
+                            <button class="choice-box" :class="{disabledButton: !inStock(index)}" @mouseover="updateVariant(index)" @click="addToCart(index)"
                             :disabled="!inStock(index)">
                             Add to Cart <i class="fa-solid fa-cart-shopping"></i>
                             </button>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>`,
+            </div>            
+        </div>
+        <review-list v-if="reviews.length" :reviews="reviews"></review-list>
+        <review-form @review-submitted="addReview"></review-form>
+        `,
     data() {
         return {
             brand: 'Vue Learning',
             product: 'Socks',
             details: ['Washable and dries quickly', 'Clean af', 'Made of soft fabric'],
             selectedVariant: 0,
+            selectedSize: 'XL',
             outOfStock: './images/out-of-stock.png',
             imgdesc: 'This is a pair of socks.',
             sizes: [
@@ -82,20 +81,24 @@ app.component('product-display', {
                 { size: 'XL', scale: '500px' }
             ],
             variants: [
-                { id: 1, color: 'Green', imgpath: './images/vmSocks-green.png', quantity: 50 },
-                { id: 2, color: 'Blue', imgpath: './images/vmSocks-blue.png', quantity: 0 },
+                { id: 1, product: 'socks', color: 'Green', imgpath: './images/vmSocks-green.png', quantity: 50 },
+                { id: 2, product: 'socks', color: 'Blue', imgpath: './images/vmSocks-blue.png', quantity: 20 },
             ],
             imgheight: '500px',
             imgwidth: '500px',
 
             onSale: true,
             price: 250,
-            discountPrice: 200
+            discountPrice: 200,
+            reviews: []
         }
     },
     methods: {
         toggleSale(onSale) {
             this.onSale = !this.onSale;
+        },
+        updateSize(size) {
+            this.selectedSize = size;
         },
         updateVariant(index) {
             this.selectedVariant = index;
@@ -104,13 +107,17 @@ app.component('product-display', {
             this.imgheight = variantScale;
             this.imgwidth = variantScale;
         },
-        addToCart(index) {
-            this.$emit('addToCart');
+        addToCart() {
+            this.variants[this.selectedVariant].size = this.selectedSize;
+            this.$emit('add-to-cart', this.variants[this.selectedVariant]);
             // const itemToAdd = { id: this.id, product: this.product, color: this.variants[index].color, quantity: 1 };
-            // this.addItemToCart(itemToAdd);            
+            // this.addItemToCart(itemToAdd);
         },
         inStock(index) {
             return (this.variants[index].quantity != 0) ? true : false;
+        },
+        addReview(review) {                 
+            this.reviews.push(review)
         }
     },
     computed: {
@@ -144,7 +151,7 @@ app.component('product-display', {
                 return 'Almost sold out!:' + quantity;
             else if (quantity = 0)
                 return 'Out of Stock';
-        },                   
+        },
     },
     inject: ["addItemToCart", "updateCart"]
 });
