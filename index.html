@@ -23,7 +23,7 @@
     <div id="app">
         <div class="cart">
             Cart: ({{cart.length}})
-            <br><br>
+            <br><br>            
             <table>
                 <thead>
                     <td>Item</td>
@@ -31,14 +31,15 @@
                 </thead>
                 <tbody>
                     <tr v-for="item in cart">
-                        <td>{{item.color + " " + item.product}}</td>
-                        <td>{{item.quantity}}</td>
+                        <td>{{item.color + " " + item.size + " " + item.product}}</td>
+                        <td>{{item.cartQuantity}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+            
+        <product-display :premium="premium" @add-to-cart="updateCart"></product-display>                
 
-        <product-display :premium="premium" />
     </div>
 
     <!-- Import app -->
@@ -46,8 +47,13 @@
 
     <!-- Import Components -->
     <script src="./components/ProductDisplay.js"></script>
-
     <script src="./components/ProductDetails.js"></script>
+    <script src="./components/ReviewForm.js"></script>
+    <script src="./components/ReviewList.js"></script>
+
+    <script>
+
+    </script>
 
     <!-- Mount App -->
     <script>
