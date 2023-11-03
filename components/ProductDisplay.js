@@ -117,7 +117,7 @@ app.component('product-display', {
             return (this.variants[index].quantity != 0) ? true : false;
         },
         addReview(review) {                 
-            this.reviews.push(review)
+            this.reviews.push(review);            
         }
     },
     computed: {

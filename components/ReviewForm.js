@@ -42,6 +42,7 @@ app.component('review-form', {
                 rating: this.rating
             };
             this.$emit('review-submitted', productReview);
+            this.$emit('generate-cream-puff');
 
             this.name = '';
             this.review = '';
