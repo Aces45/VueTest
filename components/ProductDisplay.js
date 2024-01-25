@@ -3,7 +3,7 @@ app.component('product-display', {
         premium: {
             type: Boolean,
             required: true
-        }        
+        }
     },
     template:
         /*html*/
@@ -34,8 +34,7 @@ app.component('product-display', {
                     {{variantStock}} left</p>
                 <p v-else style="color:red">Out Of Stock</p>          
 
-                <p> Shipping: {{Shipping}}</p>
-                
+                <p> Shipping: {{Shipping}}</p>                
                 <product-details :details="details"/>
 
                 <p>Sizes:</p>
@@ -44,7 +43,7 @@ app.component('product-display', {
                         {{size.size}}
                     </div>
                 </div>
-            
+                
                 <p>Variants:</p>
                 <div style="display:flex; flex-direction: column; gap: 1rem">
                     <div v-for="(variant, index) in variants">
@@ -116,8 +115,8 @@ app.component('product-display', {
         inStock(index) {
             return (this.variants[index].quantity != 0) ? true : false;
         },
-        addReview(review) {                 
-            this.reviews.push(review);            
+        addReview(review) {
+            this.reviews.push(review);
         }
     },
     computed: {
