@@ -1,4 +1,4 @@
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1300px) {
     .product {
         display: flex;
         justify-content: center;
@@ -19,7 +19,7 @@ body {
     margin: 0 0 5rem 15rem;
     border-radius: 25px;
     padding: 2rem;
-    width: 20rem;    
+    width: 20rem;
 }
 
 .button {
